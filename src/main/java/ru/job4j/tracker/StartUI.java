@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
+        Item item = new Item();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+        String currentDateTimeFormat = item.getCreated().format(formatter);
+        System.out.println("Текущие дата и время после форматирования: " + currentDateTimeFormat);
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
         try (Store tracker = new SqlTracker()) {
@@ -38,6 +43,5 @@ public class StartUI {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
