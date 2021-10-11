@@ -59,23 +59,21 @@ public class MemTracker implements Store {
     }
 
     public boolean replace(String id, Item item) {
-        boolean rls = false;
         int index = indexOf(id);
-        if (index != 1) {
+        boolean rsl = index != -1;
+        if (rsl) {
             items.set(index, item);
             item.setId(id);
-            rls = true;
         }
-        return rls;
+        return rsl;
     }
 
     public boolean delete(String id) {
-        boolean rls = false;
         int index = indexOf(id);
-        if (index != -1) {
+        boolean rsl = index != -1;
+        if (rsl) {
             items.remove(index);
-            rls = true;
         }
-        return rls;
+        return rsl;
     }
 }
