@@ -2,8 +2,20 @@ package ru.job4j.tracker;
 
 import java.util.List;
 
-public class SingleTracker implements Store {
+public final class SingleTracker implements Store {
+    private static SingleTracker instance;
     private final MemTracker tracker = new MemTracker();
+
+    private SingleTracker(SingleTracker instance) {
+        SingleTracker.instance = instance;
+    }
+
+    public static SingleTracker getInstance(SingleTracker value) {
+        if (instance == null) {
+            instance = new SingleTracker(value);
+        }
+        return instance;
+    }
 
     @Override
     public void init() {
@@ -42,6 +54,4 @@ public class SingleTracker implements Store {
     public Item findById(String id) {
         return tracker.findById(id);
     }
-
-
 }
