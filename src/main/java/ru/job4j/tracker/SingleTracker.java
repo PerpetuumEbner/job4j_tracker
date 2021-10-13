@@ -6,13 +6,12 @@ public final class SingleTracker implements Store {
     private static SingleTracker instance;
     private final MemTracker tracker = new MemTracker();
 
-    private SingleTracker(SingleTracker instance) {
-        SingleTracker.instance = instance;
+    private SingleTracker() {
     }
 
-    public static SingleTracker getInstance(SingleTracker value) {
+    public static SingleTracker getInstance() {
         if (instance == null) {
-            instance = new SingleTracker(value);
+            instance = new SingleTracker();
         }
         return instance;
     }
