@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
@@ -17,11 +19,13 @@ public class FindByNameActionExecuteTest {
         System.setOut(new PrintStream(out));
         MemTracker tracker = new MemTracker();
         Item item = new Item("test1");
+        LocalDateTime created = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
         tracker.add(item);
         FindByNameItemAction action = new FindByNameItemAction();
         action.execute(new StubInput(new String[]{"test1"}), tracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
-                .add(item.getId() + " " + item.getName())
+                .add(created.format(formatter) + System.lineSeparator() + item.getId() + " " + item.getName())
                 .toString();
         assertThat(new String(out.toByteArray()), is(expect));
         System.setOut(printStream);
