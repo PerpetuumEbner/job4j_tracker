@@ -2,27 +2,26 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+public class FindByIdItemActionTest {
 
-public class FindByNameActionExecuteTest {
     @Test
-    public void whenNameActionExecute() {
+    public void execute() {
         Output output = new StubOutput();
         MemTracker tracker = new MemTracker();
-        String name = "New item";
-        Item item = new Item(name);
+        Item item = new Item("New item");
         tracker.add(item);
-        FindByNameItemAction find = new FindByNameItemAction(output);
+        FindByIdItemAction find = new FindByIdItemAction(output);
         Input input = mock(Input.class);
-        when(input.askStr(any(String.class))).thenReturn(name);
+        when(input.askStr(any(String.class))).thenReturn("1");
         find.execute(input, tracker);
         String ln = System.lineSeparator();
-        assertThat(output.toString(), is("=== Find items by name ====" + ln + item + ln));
+        assertThat(output.toString(), is("=== Find item by id ====" + ln + item + ln));
         assertThat(tracker.findAll().get(0), is(item));
     }
 }

@@ -8,6 +8,6 @@ public class ItemSorter {
     }
 
     public void sortComparator(List<Item> items) {
-        Collections.sort(items, new SortByNameItem());
+        items.sort(new SortByNameItem());
     }
 }

@@ -1,17 +1,23 @@
 package ru.job4j.tracker;
 
 public class ReplaceItemAction implements UserAction {
+    private final Output output;
+
+    public ReplaceItemAction(Output output) {
+        this.output = output;
+    }
+
     @Override
     public String name() {
-        return "Show all items";
+        return "Replace Item";
     }
 
     @Override
     public boolean execute(Input input, Store tracker) {
+        output.println("=== Edit item ====");
         String id = input.askStr("Enter id: ");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
-        tracker.replace(id, item);
         if (tracker.replace(id, item)) {
             System.out.println("successfully");
         } else {

@@ -29,15 +29,16 @@ public class StartUI {
         String currentDateTimeFormat = item.getCreated().format(formatter);
         System.out.println("Текущие дата и время после форматирования: " + currentDateTimeFormat);
         Input input = new ConsoleInput();
+        Output output = new ConsoleOutput();
         Input validate = new ValidateInput(input);
         try (Store tracker = new SqlTracker()) {
             tracker.init();
             List<UserAction> actions = new ArrayList<>();
-            actions.add(new CreateItemAction());
-            actions.add(new ReplaceItemAction());
-            actions.add(new DeleteItemAction());
-            actions.add(new FindByIdItemAction());
-            actions.add(new FindByNameItemAction());
+            actions.add(new CreateItemAction(output));
+            actions.add(new ReplaceItemAction(output));
+            actions.add(new DeleteItemAction(output));
+            actions.add(new FindByIdItemAction(output));
+            actions.add(new FindByNameItemAction(output));
             actions.add(new ExitAction());
             new StartUI().init(validate, tracker, actions);
         } catch (Exception e) {

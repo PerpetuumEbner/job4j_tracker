@@ -2,10 +2,10 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MemTracker implements Store {
     private final List<Item> items = new ArrayList<>();
+    private int id = 1;
 
     @Override
     public void init() {
@@ -18,14 +18,9 @@ public class MemTracker implements Store {
     }
 
     public Item add(Item item) {
-        item.setId(generateId());
+        item.setId(String.valueOf(id++));
         items.add(item);
         return item;
-    }
-
-    private String generateId() {
-        Random random = new Random();
-        return String.valueOf(random.nextLong() + System.currentTimeMillis());
     }
 
     public List<Item> findAll() {
