@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -11,8 +12,15 @@ public class Item implements Comparable<Item> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
     private String name;
+
+    private String description;
+
+    private Timestamp time;
+
     private LocalDateTime created = LocalDateTime.now();
+
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
     public Item() {
@@ -25,6 +33,12 @@ public class Item implements Comparable<Item> {
     public Item(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Item(String name, String description, Timestamp time) {
+        this.name = name;
+        this.description = description;
+        this.time = time;
     }
 
     public String getId() {
@@ -41,6 +55,22 @@ public class Item implements Comparable<Item> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp timestamp) {
+        this.time = timestamp;
     }
 
     public LocalDateTime getCreated() {
@@ -70,12 +100,11 @@ public class Item implements Comparable<Item> {
             return false;
         }
         Item item = (Item) o;
-        return Objects.equals(id, item.id)
-                && Objects.equals(name, item.name);
+        return Objects.equals(id, item.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }
