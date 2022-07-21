@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -10,7 +12,8 @@ import java.util.Objects;
 @Table(name = "items")
 public class Item implements Comparable<Item> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     private String name;

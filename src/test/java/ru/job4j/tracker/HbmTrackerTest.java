@@ -40,14 +40,14 @@ public class HbmTrackerTest {
     @Test
     public void findAll() {
         HbmTracker tracker = new HbmTracker();
-        Item firstItem = new Item("firstItem");
-        Item secondItem = new Item("secondItem");
-        Item thirdItem = new Item("thirdItem");
+        Item firstItem = new Item("1", "firstItem");
+        Item secondItem = new Item("2", "secondItem");
+        Item thirdItem = new Item("3", "thirdItem");
         tracker.add(firstItem);
         tracker.add(secondItem);
         tracker.add(thirdItem);
         List<Item> listItems = tracker.findAll();
-        assertEquals(List.of(firstItem, secondItem, thirdItem), listItems);
+        assertEquals(List.of(secondItem, firstItem, thirdItem), listItems);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class HbmTrackerTest {
         tracker.add(firstItem);
         tracker.add(secondItem);
         tracker.add(thirdItem);
-        List<Item> listItems = tracker.findAll();
+        List<Item> listItems = tracker.findByName("item");
         assertEquals(List.of(secondItem, thirdItem), listItems);
     }
 
