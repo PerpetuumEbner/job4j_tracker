@@ -55,7 +55,7 @@ public class HbmTracker implements Store, AutoCloseable {
     public List<Item> findAll() {
         Session session = sf.openSession();
         session.beginTransaction();
-        var result = session.createQuery("from Item").list();
+        var result = session.createQuery("from Item i order by i.name").list();
         session.getTransaction().commit();
         session.close();
         return result;
@@ -65,7 +65,7 @@ public class HbmTracker implements Store, AutoCloseable {
     public List<Item> findByName(String name) {
         Session session = sf.openSession();
         session.beginTransaction();
-        var result = session.createQuery("FROM Item where name = :name")
+        var result = session.createQuery("FROM Item i where name = :name order by i.description")
                 .setParameter("name", name)
                 .list();
         session.getTransaction().commit();

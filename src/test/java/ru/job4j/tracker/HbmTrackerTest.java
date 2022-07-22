@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -40,22 +42,22 @@ public class HbmTrackerTest {
     @Test
     public void findAll() {
         HbmTracker tracker = new HbmTracker();
-        Item firstItem = new Item("1", "firstItem");
-        Item secondItem = new Item("2", "secondItem");
-        Item thirdItem = new Item("3", "thirdItem");
+        Item firstItem = new Item("firstItem");
+        Item secondItem = new Item("secondItem");
+        Item thirdItem = new Item("thirdItem");
         tracker.add(firstItem);
         tracker.add(secondItem);
         tracker.add(thirdItem);
         List<Item> listItems = tracker.findAll();
-        assertEquals(List.of(secondItem, firstItem, thirdItem), listItems);
+        assertEquals(List.of(firstItem, secondItem, thirdItem), listItems);
     }
 
     @Test
     public void findByName() {
         HbmTracker tracker = new HbmTracker();
-        Item firstItem = new Item("firstItem");
-        Item secondItem = new Item("item");
-        Item thirdItem = new Item("item");
+        Item firstItem = new Item("firstItem", "firstDescription", Timestamp.from(Instant.now()));
+        Item secondItem = new Item("item", "secondDescription", Timestamp.from(Instant.now()));
+        Item thirdItem = new Item("item", "thirdDescription", Timestamp.from(Instant.now()));
         tracker.add(firstItem);
         tracker.add(secondItem);
         tracker.add(thirdItem);
